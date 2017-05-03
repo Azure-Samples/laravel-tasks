@@ -12,6 +12,7 @@
 */
 
 use App\Task;
+use Illuminate\Http\Request;
 
 /**
     * Show Task Dashboard
