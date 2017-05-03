@@ -134,12 +134,6 @@ if [ -e "$DEPLOYMENT_TARGET/composer.json" ]; then
   cd - > /dev/null
 fi
 
-# 6. Run Laravel migration
-cd "$DEPLOYMENT_TARGET"
-eval php artisan migrate --force
-exitWithMessageOnError "php artisan migrate failed"
-cd - > /dev/null
-
 ##################################################################################################################################
 
 # Post deployment stub
