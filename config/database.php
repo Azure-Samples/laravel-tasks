@@ -17,8 +17,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Database Connections
-    |--------------------------------------------------------------------------
+    | Database Connections    |--------------------------------------------------------------------------
     |
     | Here are each of the database connections setup for your application.
     | Of course, examples of configuring each database platform that is
@@ -47,8 +46,8 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
