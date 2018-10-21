@@ -13,12 +13,9 @@ class ManageTaskTest extends TestCase
     /** @test */
     public function user_can_see_list_of_tasks()
     {
-        $task = new Task;
-        $task->name = 'New task item';
-        $task->save();
+        $task = $this->createTask('New task item');
 
         $response = $this->get('/');
-
         $response->assertSeeText('New task item');
     }
 
@@ -39,9 +36,7 @@ class ManageTaskTest extends TestCase
     /** @test */
     public function user_can_delete_existing_task()
     {
-        $task = new Task;
-        $task->name = 'Task to be deleted';
-        $task->save();
+        $task = $this->createTask('Task to be deleted');
 
         $this->assertDatabaseHas('tasks', [
             'name' => 'Task to be deleted',
@@ -55,5 +50,14 @@ class ManageTaskTest extends TestCase
             'id'   => $task->id,
             'name' => 'Task to be deleted',
         ]);
+    }
+
+    private function createTask($name = 'New Task')
+    {
+        $task = new Task;
+        $task->name = $name;
+        $task->save();
+
+        return $task;
     }
 }
