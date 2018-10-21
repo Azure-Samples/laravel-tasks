@@ -11,6 +11,18 @@ class ManageTaskTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function user_can_see_list_of_tasks()
+    {
+        $task = new Task;
+        $task->name = 'New task item';
+        $task->save();
+
+        $response = $this->get('/');
+
+        $response->assertSeeText('New task item');
+    }
+
+    /** @test */
     public function user_can_add_task()
     {
         $response = $this->post('/task', [
