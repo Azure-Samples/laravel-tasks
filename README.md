@@ -1,10 +1,13 @@
 ---
-services: app-service\web,app-service
-platforms: php
-author: cephalin
+topic: Laravel sample for Azure App Service
+languages:
+  - php
+products:
+  - Azure App Service
+  - Azure Web Apps
 ---
 
-# MEAN.js sample for Azure App Service
+# Laravel sample for Azure App Service
 
 This is a sample application that you can use to follow along with the tutorial at 
 [Build a PHP and MySQL web app in Azure](https://docs.microsoft.com/azure/app-service-web/app-service-web-tutorial-php-mysql). 
