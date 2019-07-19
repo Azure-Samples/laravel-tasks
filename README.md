@@ -1,10 +1,11 @@
 ---
-topic: Laravel sample for Azure App Service
 languages:
-  - php
+- php
+page_type: sample
+description: "This is a sample application that you can use to follow along with the Build a PHP and MySQL web app in Azure tutorial."
 products:
-  - Azure App Service
-  - Azure Web Apps
+- azure
+- azure-app-service
 ---
 
 # Laravel sample for Azure App Service
