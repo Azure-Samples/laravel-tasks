@@ -17,7 +17,7 @@ This sample application is taken from the official [Laravel sample task list app
 
 ## License
 
-See [LICENSE](LICENSE).
+See [LICENSE](https://github.com/Azure-Samples/laravel-tasks/blob/master/LICENSE).
 
 ## Contributing
 
