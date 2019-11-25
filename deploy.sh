@@ -98,38 +98,36 @@ selectNodeVersion () {
 # Deployment
 # ----------
 
-echo Handling node.js deployment.
-
 # 1. KuduSync
 if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
   "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
   exitWithMessageOnError "Kudu Sync failed"
 fi
 
-# 2. Select node version
-selectNodeVersion
+# 2. Install Composer modules 
+if [ -e "$DEPLOYMENT_TARGET/composer.json" ]; then
+  echo Running composer install
+  cd "$DEPLOYMENT_TARGET"
+  eval php composer.phar install
+  exitWithMessageOnError "composer failed"
+  cd - > /dev/null
+fi
 
 # 3. Install NPM packages
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
+  echo Running npm install
   cd "$DEPLOYMENT_TARGET"
-  eval $NPM_CMD install --production
+  eval npm install --production
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi
 
 # 4. Install Bower modules
 if [ -e "$DEPLOYMENT_TARGET/bower.json" ]; then
+  echo Running bower install
   cd "$DEPLOYMENT_TARGET"
   eval ./node_modules/.bin/bower install
   exitWithMessageOnError "bower failed"
-  cd - > /dev/null
-fi
-
-# 5. Install Composer modules 
-if [ -e "$DEPLOYMENT_TARGET/composer.json" ]; then
-  cd "$DEPLOYMENT_TARGET"
-  eval php composer.phar install
-  exitWithMessageOnError "composer failed"
   cd - > /dev/null
 fi
 
