@@ -50,7 +50,11 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
+	    'engine' => null,
+	    'sslmode' => env('DB_SSLMODE', 'prefer'),
+    	    'options' => (env('MYSQL_SSL')) ? [
+        	PDO::MYSQL_ATTR_SSL_KEY    => '/ssl/BaltimoreCyberTrustRoot.crt.pem',
+    	    ] : []
         ],
 
         'pgsql' => [
