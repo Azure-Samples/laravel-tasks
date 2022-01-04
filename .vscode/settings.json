@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b77f6616-ad9d-455b-a018-57af6377a5ff/resourceGroups/RG_Test/providers/Microsoft.Web/sites/waskitaapps",
+    "appService.deploySubpath": "."
+}
