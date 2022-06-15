@@ -113,24 +113,6 @@ if [ -e "$DEPLOYMENT_TARGET/composer.json" ]; then
   cd - > /dev/null
 fi
 
-# 3. Install NPM packages
-if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
-  echo Running npm install
-  cd "$DEPLOYMENT_TARGET"
-  eval npm install --production
-  exitWithMessageOnError "npm failed"
-  cd - > /dev/null
-fi
-
-# 4. Install Bower modules
-if [ -e "$DEPLOYMENT_TARGET/bower.json" ]; then
-  echo Running bower install
-  cd "$DEPLOYMENT_TARGET"
-  eval ./node_modules/.bin/bower install
-  exitWithMessageOnError "bower failed"
-  cd - > /dev/null
-fi
-
 ##################################################################################################################################
 
 # Post deployment stub
