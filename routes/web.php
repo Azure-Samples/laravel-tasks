@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,7 @@
 |
 */
 
-use App\Task;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 /**
