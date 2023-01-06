@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ListController;
 
 /**
     * Show Task Dashboard
@@ -25,6 +26,9 @@ Route::get('/', function () {
         'tasks' => Task::orderBy('created_at', 'asc')->get()
     ]);
 });
+Route::get('/list', [ListController::class, 'index']);
+Route::get('/edit', [EditController::class, 'index']);
+
 
 /**
     * Add New Task
