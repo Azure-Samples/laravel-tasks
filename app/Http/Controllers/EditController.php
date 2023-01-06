@@ -12,7 +12,7 @@ class EditController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $videoId)
+    public function index(Request $request)
     {
         return view('edit');
     }
