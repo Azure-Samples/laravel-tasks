@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\EditController;
 
 /**
     * Show Task Dashboard
