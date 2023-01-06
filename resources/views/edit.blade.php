@@ -164,7 +164,7 @@
               type : 'GET',
               dataType : 'json',
               async: false,
-              url: '/storage/files/'+videoId+'.json',
+              url: '/storage/'+videoId+'.json',
               success : function(jsonObjects) {
                   subtitleObject = jsonObjects;
                   maxIndex = Object.keys(subtitleObject).length;
