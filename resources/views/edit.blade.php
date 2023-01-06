@@ -233,7 +233,7 @@
             console.log(twTxt);
             $.ajax({
               type : 'POST',
-              url: 'https://1oltxev2o5.execute-api.ap-northeast-1.amazonaws.com/subtitle_modify',
+              url: "{{url('video')}}",
               data: {
                 "vid": videoId,
                 "index": currentIndex,

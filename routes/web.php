@@ -17,6 +17,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\EditController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\TestController;
 
 /**
@@ -32,6 +33,8 @@ Route::get('/list', [ListController::class, 'index']);
 Route::get('/edit', [EditController::class, 'index']);
 Route::get('/test1', [TestController::class, 'noHeader']);
 Route::get('/test2', [TestController::class, 'withHeader']);
+Route::post('/video', [VideoController::class, 'update']);
+
 
 
 /**
