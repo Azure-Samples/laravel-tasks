@@ -19,5 +19,12 @@ class VideoController extends Controller
         var_dump($request->vid);
         var_dump("==============");
         var_dump($request);
+        //return response('Success', 200);
+
+        return response()->json(
+            [
+                'id' => $request->vid
+            ]
+        );
     }
 }
