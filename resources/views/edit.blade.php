@@ -234,6 +234,9 @@
             $.ajax({
               type : 'POST',
               url: "{{url('video')}}",
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+              },
               data: {
                 "vid": videoId,
                 "index": currentIndex,
