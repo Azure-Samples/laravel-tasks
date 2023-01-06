@@ -1,3 +1,4 @@
+<?php header("Access-Control-Allow-Origin: *"); ?>
 @extends('layouts.app')
 
 @section('content')
