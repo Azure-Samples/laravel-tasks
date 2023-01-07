@@ -17,8 +17,9 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\EditController;
-use App\Http\Controllers\VideoController;
-use App\Http\Controllers\TestController;
+
+Route::get('/list', [ListController::class, 'index']);
+Route::get('/edit', [EditController::class, 'index']);
 
 /**
     * Show Task Dashboard
@@ -29,13 +30,6 @@ Route::get('/', function () {
         'tasks' => Task::orderBy('created_at', 'asc')->get()
     ]);
 });
-Route::get('/list', [ListController::class, 'index']);
-Route::get('/edit', [EditController::class, 'index']);
-Route::get('/test1', [TestController::class, 'noHeader']);
-Route::get('/test2', [TestController::class, 'withHeader']);
-Route::post('/video', [VideoController::class, 'update']);
-
-
 
 /**
     * Add New Task

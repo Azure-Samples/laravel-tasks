@@ -233,7 +233,7 @@
             console.log(twTxt);
             $.ajax({
               type : 'POST',
-              url: "{{url('video')}}",
+              url: "{{url('api/video')}}",
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
               },

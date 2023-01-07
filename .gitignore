@@ -11,3 +11,4 @@ npm-debug.log
 .env
 .env.production
 /.azure
+.env
