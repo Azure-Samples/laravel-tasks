@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'Web-AppFelixBente'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C036A8D3FD8E4AA285519EEC69D40591 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C0F224E73CC4E3E860F681C4A72E636 }}
           package: .
