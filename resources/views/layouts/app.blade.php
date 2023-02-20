@@ -33,7 +33,14 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Task List
+                    Meun
+                </a>
+
+                <a class="navbar-brand" href="{{ url('/translation/list') }}">
+                    影片翻譯編輯
+                </a>
+                <a class="navbar-brand" href="{{ url('/question/list') }}">
+                    問題翻譯編輯
                 </a>
             </div>
 

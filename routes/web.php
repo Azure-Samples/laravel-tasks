@@ -15,25 +15,36 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ListController;
-use App\Http\Controllers\EditController;
+use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\QuestionController;
 
-Route::get('/list', [ListController::class, 'index']);
-Route::get('/edit', [EditController::class, 'index']);
+Route::get('/', [IndexController::class, 'index']);
 
+Route::prefix('translation')->name('translation.')->group(function(){
+    Route::get('/list', [TranslationController::class, 'list'])->name('list');
+    Route::get('/{translation_id}/edit', [TranslationController::class, 'edit'])->name('edit');
+});
+
+Route::prefix('question')->name('question.')->group(function(){
+    Route::get('/list', [QuestionController::class, 'list'])->name('list');
+    Route::get('/{question_id}/edit', [QuestionController::class, 'edit'])->name('edit');
+});
 /**
     * Show Task Dashboard
     */
+/*
 Route::get('/', function () {
     error_log("INFO: get /");
     return view('tasks', [
         'tasks' => Task::orderBy('created_at', 'asc')->get()
     ]);
 });
-
+*/
 /**
     * Add New Task
     */
+/*
 Route::post('/task', function (Request $request) {
     error_log("INFO: post /task");
     $validator = Validator::make($request->all(), [
@@ -53,13 +64,16 @@ Route::post('/task', function (Request $request) {
 
     return redirect('/');
 });
+*/
 
 /**
     * Delete Task
     */
+/*
 Route::delete('/task/{id}', function ($id) {
     error_log('INFO: delete /task/'.$id);
     Task::findOrFail($id)->delete();
 
     return redirect('/');
 });
+*/

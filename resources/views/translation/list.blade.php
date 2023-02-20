@@ -21,7 +21,7 @@
                                     <tr>
                                         <td class="table-text"><div>{{ $videoId }}</div></td>
                                         <td class="table-text">
-                                            <a href="{{ url('edit') . '?' . http_build_query(['id' => $videoId]) }}">Edit</a>
+                                            <a href="{{ route('translation.edit', $videoId) . '?' . http_build_query(['id' => $videoId]) }}">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

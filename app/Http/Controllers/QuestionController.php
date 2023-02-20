@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
-class ListController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function list()
     {
         $videoIds = array(
             '0yKmBMQ44HU',
@@ -22,8 +22,18 @@ class ListController extends Controller
             'Y9uZbU_JzsA',
             'ZZDJBEdsoAE'
         );
-        return view('list', [
+        return view('question.list', [
             'videoIds' => $videoIds
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request)
+    {
+        return view('question.edit');
     }
 }
