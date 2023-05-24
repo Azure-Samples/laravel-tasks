@@ -30,6 +30,15 @@ steps:
     workingDir: '$(Build.SourcesDirectory)'
   displayName: 'npm install'
 
+- script: |
+    sudo npm i -g npm
+    sudo chown -R vsts:vsts ~/.npm
+    sudo chown -R vsts:vsts ~/.config
+    npm install
+    npm run prod
+    node -v
+  displayName: 'Generating build assets'
+  
 - task: Npm@1
   inputs:
     command: 'custom'
