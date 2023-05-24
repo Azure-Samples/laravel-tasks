@@ -39,13 +39,7 @@ steps:
     node -v
   displayName: 'Generating build assets'
   
-- #task: Npm@1
-  #inputs:
-   # command: 'custom'
-    #workingDir: '$(Build.SourcesDirectory)'
-    #customCommand: 'run build'
-    #verbose: 'true'
-    #displayName: 'npm build'
+
 
 - task: CopyFiles@2
   inputs:
