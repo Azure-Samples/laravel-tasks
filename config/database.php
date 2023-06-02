@@ -45,12 +45,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database'  => env('DB_DATABASE', 'forge'),
-            'username'  => env('DB_USERNAME', 'forge'),
-            'password'  => env('DB_PASSWORD', ''),
+            'url' => env('tasklist-php-server.mysql.database.azure.com'),
+            'host' => env('asklist-php-server.mysql.database.azure.com'),
+            'port' => env('3306'),
+            'database'  => env('tasklist-php-database', 'forge'),
+            'username'  => env('tasklist-php-server', 'forge'),
+            'password'  => env('jlxprwdfel'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
