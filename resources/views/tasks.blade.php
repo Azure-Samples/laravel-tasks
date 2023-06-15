@@ -73,6 +73,12 @@
                     </div>
                 </div>
             @endif
+            <!-- Elapsed time -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    Response time: {{ $elapsed * 1000 }} milliseconds.
+                </div>
+            </div>
         </div>
     </div>
 @endsection

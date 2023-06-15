@@ -20,23 +20,30 @@ use Illuminate\Http\Request;
     * Show Task Dashboard
     */
 Route::get('/', function () {
-    error_log("INFO: get /");
-    return view('tasks', [
-        'tasks' => Task::orderBy('created_at', 'asc')->get()
-    ]);
+    Log::info("Get /");
+    $startTime = microtime(true);
+    // Simple cache-aside logic
+    if (Cache::has('tasks')) {
+        $data = Cache::get('tasks');
+        return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
+    } else {
+        $data = Task::orderBy('created_at', 'asc')->get();
+        Cache::add('tasks', $data);
+        return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
+    }
 });
 
 /**
     * Add New Task
     */
 Route::post('/task', function (Request $request) {
-    error_log("INFO: post /task");
+    Log::info("Post /task");
     $validator = Validator::make($request->all(), [
         'name' => 'required|max:255',
     ]);
 
     if ($validator->fails()) {
-        error_log("ERROR: Add task failed.");
+        Log::error("Add task failed.");
         return redirect('/')
             ->withInput()
             ->withErrors($validator);
@@ -45,6 +52,8 @@ Route::post('/task', function (Request $request) {
     $task = new Task;
     $task->name = $request->name;
     $task->save();
+    // Clear the cache
+    Cache::flush();
 
     return redirect('/');
 });
@@ -53,10 +62,10 @@ Route::post('/task', function (Request $request) {
     * Delete Task
     */
 Route::delete('/task/{id}', function ($id) {
-    error_log('INFO: delete /task/'.$id);
+    Log::info('Delete /task/'.$id);
     Task::findOrFail($id)->delete();
+    // Clear the cache
+    Cache::flush();
 
     return redirect('/');
-});
-
 });
