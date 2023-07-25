@@ -50,8 +50,8 @@ return [
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'msdocs-laravel-mysql-145-database'),
 
-            'username' => env('DB_USERNAME', 'bzshbttzqp'),
-            'password' => env('DB_PASSWORD', 'GV37FTK0R6H77G4H$'),
+            'username' => env('DB_USERNAME', 'ohbzjpsjki'),
+            'password' => env('DB_PASSWORD', '83ARVVS0CISFHAT4$'),
 
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
