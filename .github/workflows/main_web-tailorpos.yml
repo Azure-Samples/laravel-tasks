@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'web-tailorpos'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_283C7ECA30284F4B8D8095DAF3323180 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE69BA49C4B341EDAE92FE5F56B3B8A5 }}
           package: .
