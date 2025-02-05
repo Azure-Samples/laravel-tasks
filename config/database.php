@@ -145,6 +145,7 @@ return [
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('AZURE_REDIS_DATABASE', '1'),
             'scheme' => 'tls',
+            
         ],
 
     ],
