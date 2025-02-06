@@ -48,7 +48,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('AZURE_MYSQL_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('AZURE_MYSQL_DBNAME', 'forge'),
+            'database' => env('AZURE_MYSQL_DBNAME', 'ako'),
             'username' => env('AZURE_MYSQL_USERNAME', 'forge'),
             'password' => env('AZURE_MYSQL_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
