@@ -48,9 +48,9 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('AZURE_MYSQL_HOST', '127.0.0.1'),
             'port' => env('AZURE_MYSQL_PORT', '3306'),
-            'database' => env('AZURE_MYSQL_DBNAME', 'forge'),
-            'username' => env('AZURE_MYSQL_USERNAME', 'forge'),
-            'password' => env('AZURE_MYSQL_PASSWORD', ''),
+            'database' => env('AZURE_MYSQL_DBNAME', 'msdocs-laravel-mysql-crz-database'), // updated value
+            'username' => env('AZURE_MYSQL_USERNAME', 'cavsosynrp'), // updated value
+            'password' => env('AZURE_MYSQL_PASSWORD', 'nP$KM7Xlm3Y5$raO'), // updated this value
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
