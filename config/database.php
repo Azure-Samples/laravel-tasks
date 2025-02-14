@@ -46,11 +46,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('AZURE_MYSQL_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('AZURE_MYSQL_DBNAME', 'forge'),
+            'username' => env('AZURE_MYSQL_USERNAME', 'forge'),
+            'password' => env('AZURE_MYSQL_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -67,7 +67,7 @@ return [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
+            'port' => env('AZURE_MYSQL_PORT', '5432'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
@@ -125,7 +125,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '').'_database'),
         ],
 
         'default' => [
@@ -138,14 +138,15 @@ return [
         ],
 
         'cache' => [
+            'scheme' => 'tls',
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'host' => env('AZURE_REDIS_HOST', '127.0.0.1'),
             'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
-        ],
+            'password' => env('AZURE_REDIS_PASSWORD'),
+            'port' => env('AZURE_REDIS_PORT', '6379'),
+            'database' => env('AZURE_REDIS_DATABASE', '1'),
+        ],
 
-    ],
+    ],
 
 ];
