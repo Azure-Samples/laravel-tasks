@@ -7,16 +7,16 @@
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
 	"features": {
-		"ghcr.io/azure/azure-dev/azd:latest": {},
 		"ghcr.io/devcontainers/features/azure-cli:1": {},
-		"ghcr.io/devcontainers-extra/features/composer:1": {}
-	}
+		"ghcr.io/devcontainers-extra/features/composer:1": {},
+		"ghcr.io/devcontainers/features/node:latest": {}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": []
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+	"postCreateCommand": "sudo rm /usr/local/etc/php/conf.d/xdebug.ini" // Remove the xdebug config file to suppress XDebug related warning messages
 
 	// Configure tool-specific properties.
 	// "customizations": {},

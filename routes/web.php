@@ -28,12 +28,11 @@ Route::get('/', function () {
     // Simple cache-aside logic
     if (Cache::has('tasks')) {
         $data = Cache::get('tasks');
-        return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
     } else {
         $data = Task::orderBy('created_at', 'asc')->get();
         Cache::add('tasks', $data);
-        return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
     }
+    return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
 });
 
 /**

@@ -8,3 +8,4 @@ The dev container configuration lets you open the repository in a [GitHub codesp
 - Composer
 - `pdo_mysql` extension
 - Redis
+- Azure CLI
