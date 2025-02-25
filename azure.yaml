@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+# azure.yaml is an azd configuration file and isn't used by the sample application. 
+
+name: php-app-service-mysql-redis
+metadata:
+  template: php-app-service-mysql-redis@0.0.1-beta
+services:
+  # Azure Developer CLI doesn't support PHP natively, but since PHP is a file-based scripting language, set language to js because we just need to upload the files.
+  web:
+    project: .
+    language: js
+    host: appservice
+hooks:
+  postprovision:
+    posix: 
+      shell: sh
+      run: printf '\nApp Service app has the following app settings:\n' && printf "$APP_SETTINGS" | jq -r '.[]' | sed 's/\(.*\)/\t- \1/' && printf "\nSee the settings in the portal:\033[1;36m $WEB_APP_CONFIG\n" 
+      interactive: true
+      continueOnError: true
+  postdeploy:
+    posix: 
+      shell: sh
+      run: printf "Open SSH session to App Service container at:\033[1;36m $WEB_APP_SSH\033[0m\nStream App Service logs at:\033[1;36m $WEB_APP_LOG_STREAM\n"
+      interactive: true
+      continueOnError: true
