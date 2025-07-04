@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Explanation about display setting in  this app.Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
