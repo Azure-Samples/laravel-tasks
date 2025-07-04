@@ -1,4 +1,5 @@
 ---
+general instructions to the visitors
 languages:
 - php
 page_type: sample
