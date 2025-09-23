@@ -43,23 +43,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: php-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DEE30ED7DFA945F19CA3C74DD5A07F2D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_55F4CBE7E48549778BF1B5B7C82A9531 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_610EF3610980461384BBC952B901C5DC }}
-
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
@@ -67,4 +57,4 @@ jobs:
           app-name: 'efconstant-laravel-mysql'
           slot-name: 'Production'
           package: .
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BA047E5C9CCE4934B530AD11707DF10C }}
