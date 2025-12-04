@@ -508,7 +508,7 @@ var aggregatedAppSettings = union(
   reduce(cacheConnector.listConfigurations().configurations, {}, (cur, next) => union(cur, { '${next.name}': checkAndFormatSecrets(next) })), 
   {
     // CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
-    // MYSQL_ATTR_SSL_CA: '/home/site/wwwroot/ssl/DigiCertGlobalRootCA.crt.pem' // Needed to access MySQL in Azure. The certificate file is included in the sample repository for convenience.
+    // MYSQL_ATTR_SSL_CA: '/home/site/wwwroot/ssl/DigiCertGlobalRootG2.crt.pem' // Needed to access MySQL in Azure. The certificate file is included in the sample repository for convenience.
     // LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
     // APP_DEBUG: true // Enable debug mode pages in Laravel.
     // APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
