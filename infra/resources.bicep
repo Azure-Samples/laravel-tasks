@@ -142,7 +142,7 @@ resource privateDnsZoneDB 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   }
 }
 
-// Resources needed to secure Redis Cache behind a private endpoint
+// Resources needed to secure Azure Managed Redis behind a private endpoint
 resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = {
   name: '${appName}-cache-privateEndpoint'
   location: location
@@ -155,7 +155,7 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
         name: '${appName}-cache-privateEndpoint'
         properties: {
           privateLinkServiceId: redisCache.id
-          groupIds: ['redisCache']
+          groupIds: ['redisEnterprise']
         }
       }
     ]
@@ -175,7 +175,7 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
   }
 }
 resource privateDnsZoneCache 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.redis.cache.windows.net'
+  name: 'privatelink.redisenterprise.cache.azure.net'
   location: 'global'
   dependsOn: [
     virtualNetwork
@@ -192,7 +192,7 @@ resource privateDnsZoneCache 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   }
 }
 
-// The Key Vault is used to manage redis secrets.
+// The Key Vault is used to manage Azure Managed Redis secrets.
 // Current user has the admin permissions to configure key vault secrets, but by default doesn't have the permissions to read them.
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
   name: '${take(replace(appName, '-', ''), 17)}-vault'
@@ -270,20 +270,23 @@ resource dbserver 'Microsoft.DBforMySQL/flexibleServers@2024-06-01-preview' = {
   ]
 }
 
-// The Redis cache is configured to the minimum pricing tier
-resource redisCache 'Microsoft.Cache/Redis@2023-08-01' = {
+// Azure Managed Redis is configured to the minimum pricing tier.
+resource redisCache 'Microsoft.Cache/redisEnterprise@2026-02-01-preview' = {
   name: '${appName}-cache'
   location: location
+  sku: {
+    name: 'Balanced_B0'
+  }
   properties: {
-    sku: {
-      name: 'Basic'
-      family: 'C'
-      capacity: 0
-    }
-    redisConfiguration: {}
-    enableNonSslPort: false
-    redisVersion: '6'
+    minimumTlsVersion: '1.2'
     publicNetworkAccess: 'Disabled'
+  }
+
+  resource redisDatabase 'databases@2026-02-01-preview' = {
+    name: 'default'
+    properties: {
+      accessKeysAuthentication: 'Enabled'
+    }
   }
 }
 
@@ -419,7 +422,7 @@ resource vaultConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
   ]
 }
 
-// Service Connector from the app to the cache, which generates an app setting for the App Service app
+// Service Connector from the app to Azure Managed Redis, which generates Redis connection settings for the App Service app
 resource cacheConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
   scope: web
   name: 'RedisConnector'
@@ -427,7 +430,7 @@ resource cacheConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
     clientType: 'none'
     targetService: {
       type: 'AzureResource'
-      id:  resourceId('Microsoft.Cache/Redis/Databases', redisCache.name, '0')
+      id: redisCache::redisDatabase.id
     }
     authInfo: {
       authType: 'accessKey'
@@ -507,6 +510,9 @@ var aggregatedAppSettings = union(
   reduce(dbConnector.listConfigurations().configurations, {}, (cur, next) => union(cur, { '${next.name}': checkAndFormatSecrets(next) })), 
   reduce(cacheConnector.listConfigurations().configurations, {}, (cur, next) => union(cur, { '${next.name}': checkAndFormatSecrets(next) })), 
   {
+    // Azure Managed Redis supports database 0 only, so reuse it for the cache connection as well.
+    REDIS_CACHE_DB: '0'
+
     // CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
     // MYSQL_ATTR_SSL_CA: '/home/site/wwwroot/ssl/DigiCertGlobalRootCA.crt.pem' // Needed to access MySQL in Azure. The certificate file is included in the sample repository for convenience.
     // LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
