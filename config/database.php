@@ -118,7 +118,7 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
-
+/*
     'redis' => [
 
         'client' => env('REDIS_CLIENT', 'phpredis'),
@@ -145,7 +145,7 @@ return [
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
         ],
-
+*/
     ],
 
 ];
