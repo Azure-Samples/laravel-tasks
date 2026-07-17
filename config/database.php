@@ -129,7 +129,7 @@ return [
         ],
 
         'default' => [
-            'scheme' => env('AZURE_REDIS_HOST') ? env('AZURE_REDIS_SCHEME', 'rediss') : env('REDIS_SCHEME', 'tcp'),
+            'scheme' => env('AZURE_REDIS_HOST') ? env('AZURE_REDIS_SCHEME', 'tls') : env('REDIS_SCHEME', 'tcp'),
             'url' => env('REDIS_URL'),
             'host' => env('AZURE_REDIS_HOST', env('REDIS_HOST', '127.0.0.1')),
             'username' => env('AZURE_REDIS_USERNAME', env('REDIS_USERNAME')),
@@ -139,7 +139,7 @@ return [
         ],
 
         'cache' => [
-            'scheme' => env('AZURE_REDIS_HOST') ? env('AZURE_REDIS_SCHEME', 'rediss') : env('REDIS_SCHEME', 'tcp'),
+            'scheme' => env('AZURE_REDIS_HOST') ? env('AZURE_REDIS_SCHEME', 'tls') : env('REDIS_SCHEME', 'tcp'),
             'url' => env('REDIS_URL'),
             'host' => env('AZURE_REDIS_HOST', env('REDIS_HOST', '127.0.0.1')),
             'username' => env('AZURE_REDIS_USERNAME', env('REDIS_USERNAME')),
