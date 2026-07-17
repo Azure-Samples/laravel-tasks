@@ -315,7 +315,7 @@ resource web 'Microsoft.Web/sites@2022-09-01' = {
       linuxFxVersion: 'PHP|8.3' // Set to PHP 8.3
       vnetRouteAllEnabled: true // Route outbound traffic to the VNET
       ftpsState: 'Disabled'
-      appCommandLine: 'cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload'
+      // appCommandLine: 'cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload'
 
       // To configure app settings, search for the appsettings resource toward the end of the file.
     }
@@ -513,11 +513,11 @@ var aggregatedAppSettings = union(
     // Azure Managed Redis supports database 0 only, so reuse it for the cache connection as well.
     REDIS_CACHE_DB: '0'
 
-    CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
+    // CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
     // MYSQL_ATTR_SSL_CA: '/home/site/wwwroot/ssl/DigiCertGlobalRootCA.crt.pem' // Needed to access MySQL in Azure. The certificate file is included in the sample repository for convenience.
     // LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
     // APP_DEBUG: true // Enable debug mode pages in Laravel.
-    APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
+    // APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
 
     // Add other app settings here, for example:
     // 'FOO': 'BAR'
