@@ -405,7 +405,7 @@ resource vaultConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
   scope: web
   name: 'vaultConnector'
   properties: {
-    clientType: 'none'
+    clientType: 'php'
     targetService: {
       type: 'AzureResource'
       id: keyVault.id
