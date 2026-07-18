@@ -315,7 +315,7 @@ resource web 'Microsoft.Web/sites@2022-09-01' = {
       linuxFxVersion: 'PHP|8.5' // Set to PHP 8.5
       vnetRouteAllEnabled: true // Route outbound traffic to the VNET
       ftpsState: 'Disabled'
-      appCommandLine: 'mkdir -p /home/site/wwwroot/storage/framework/cache /home/site/wwwroot/storage/framework/sessions /home/site/wwwroot/storage/framework/views /home/site/wwwroot/storage/logs && cp /home/site/wwwroot/default /etc/nginx/conf.d/default.conf && service nginx reload'
+      appCommandLine: 'cp /home/site/wwwroot/default /etc/nginx/conf.d/default.conf && service nginx reload'
 
       // To configure app settings, search for the appsettings resource toward the end of the file.
     }
