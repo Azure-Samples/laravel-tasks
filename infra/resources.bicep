@@ -175,7 +175,7 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
   }
 }
 resource privateDnsZoneCache 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.redisenterprise.cache.azure.net'
+  name: 'privatelink.redis.azure.net'
   location: 'global'
   dependsOn: [
     virtualNetwork
@@ -299,7 +299,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
     reserved: true
   }
   sku: {
-    name: 'P0V3'
+    name: 'B1'
   }
 }
 
@@ -312,10 +312,10 @@ resource web 'Microsoft.Web/sites@2022-09-01' = {
   }
   properties: {
     siteConfig: {
-      linuxFxVersion: 'PHP|8.3' // Set to PHP 8.3
+      linuxFxVersion: 'PHP|8.5' // Set to PHP 8.5
       vnetRouteAllEnabled: true // Route outbound traffic to the VNET
       ftpsState: 'Disabled'
-      // appCommandLine: 'cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload'
+      appCommandLine: 'mkdir -p /home/site/wwwroot/storage/framework/cache /home/site/wwwroot/storage/framework/sessions /home/site/wwwroot/storage/framework/views /home/site/wwwroot/storage/logs && cp /home/site/wwwroot/default /etc/nginx/conf.d/default.conf && service nginx reload'
 
       // To configure app settings, search for the appsettings resource toward the end of the file.
     }
@@ -405,7 +405,7 @@ resource vaultConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
   scope: web
   name: 'vaultConnector'
   properties: {
-    clientType: 'php'
+    clientType: 'none'
     targetService: {
       type: 'AzureResource'
       id: keyVault.id
@@ -513,11 +513,11 @@ var aggregatedAppSettings = union(
     // Azure Managed Redis supports database 0 only, so reuse it for the cache connection as well.
     REDIS_CACHE_DB: '0'
 
-    // CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
-    // MYSQL_ATTR_SSL_CA: '/home/site/wwwroot/ssl/DigiCertGlobalRootCA.crt.pem' // Needed to access MySQL in Azure. The certificate file is included in the sample repository for convenience.
-    // LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
-    // APP_DEBUG: true // Enable debug mode pages in Laravel.
-    // APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
+    CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
+    MYSQL_ATTR_SSL_CA: '/etc/ssl/certs/ca-certificates.crt' // Use the OS trust store to validate Azure MySQL server certificates.
+    LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
+    APP_DEBUG: true // Enable debug mode pages in Laravel.
+    APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
 
     // Add other app settings here, for example:
     // 'FOO': 'BAR'
