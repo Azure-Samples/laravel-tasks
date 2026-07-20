@@ -142,7 +142,7 @@ resource privateDnsZoneDB 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   }
 }
 
-// Resources needed to secure Redis Cache behind a private endpoint
+// Resources needed to secure Azure Managed Redis behind a private endpoint
 resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = {
   name: '${appName}-cache-privateEndpoint'
   location: location
@@ -155,7 +155,7 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
         name: '${appName}-cache-privateEndpoint'
         properties: {
           privateLinkServiceId: redisCache.id
-          groupIds: ['redisCache']
+          groupIds: ['redisEnterprise']
         }
       }
     ]
@@ -175,7 +175,7 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
   }
 }
 resource privateDnsZoneCache 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.redis.cache.windows.net'
+  name: 'privatelink.redis.azure.net'
   location: 'global'
   dependsOn: [
     virtualNetwork
@@ -192,7 +192,7 @@ resource privateDnsZoneCache 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   }
 }
 
-// The Key Vault is used to manage redis secrets.
+// The Key Vault is used to manage Azure Managed Redis secrets.
 // Current user has the admin permissions to configure key vault secrets, but by default doesn't have the permissions to read them.
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
   name: '${take(replace(appName, '-', ''), 17)}-vault'
@@ -270,20 +270,26 @@ resource dbserver 'Microsoft.DBforMySQL/flexibleServers@2024-06-01-preview' = {
   ]
 }
 
-// The Redis cache is configured to the minimum pricing tier
-resource redisCache 'Microsoft.Cache/Redis@2023-08-01' = {
+// Azure Managed Redis is configured to the minimum pricing tier
+resource redisCache 'Microsoft.Cache/redisEnterprise@2026-02-01-preview' = {
   name: '${appName}-cache'
   location: location
   properties: {
     sku: {
-      name: 'Basic'
-      family: 'C'
-      capacity: 0
+      name: 'Balanced_B0'
     }
     redisConfiguration: {}
     enableNonSslPort: false
     redisVersion: '6'
     publicNetworkAccess: 'Disabled'
+  }
+}
+
+// Azure Managed Redis authentication
+resource redisDatabase 'databases@2026-02-01-preview' = {
+  name: 'default'
+  properties: {
+    accessKeysAuthentication: 'Enabled'
   }
 }
 
@@ -296,7 +302,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
     reserved: true
   }
   sku: {
-    name: 'P0V3'
+    name: 'B1'
   }
 }
 
@@ -427,7 +433,7 @@ resource cacheConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
     clientType: 'none'
     targetService: {
       type: 'AzureResource'
-      id:  resourceId('Microsoft.Cache/Redis/Databases', redisCache.name, '0')
+      id: redisCache::redisDatabase.id
     }
     authInfo: {
       authType: 'accessKey'
