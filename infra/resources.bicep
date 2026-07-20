@@ -316,7 +316,7 @@ resource web 'Microsoft.Web/sites@2022-09-01' = {
       linuxFxVersion: 'PHP|8.3' // Set to PHP 8.3
       vnetRouteAllEnabled: true // Route outbound traffic to the VNET
       ftpsState: 'Disabled'
-      appCommandLine: 'cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload'
+      //appCommandLine: 'cp /home/site/wwwroot/default /etc/nginx/sites-available/default && service nginx reload'
 
       // To configure app settings, search for the appsettings resource toward the end of the file.
     }
@@ -511,11 +511,11 @@ var aggregatedAppSettings = union(
   reduce(dbConnector.listConfigurations().configurations, {}, (cur, next) => union(cur, { '${next.name}': checkAndFormatSecrets(next) })), 
   reduce(cacheConnector.listConfigurations().configurations, {}, (cur, next) => union(cur, { '${next.name}': checkAndFormatSecrets(next) })), 
   {
-    CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
-    MYSQL_ATTR_SSL_CA: '/etc/ssl/certs/ca-certificates.crt' // Use the App Service platform CA bundle for Azure MySQL TLS.
-    LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
-    APP_DEBUG: true // Enable debug mode pages in Laravel.
-    APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
+    //CACHE_DRIVER: 'redis' // Tell Laravel to use Redis as its cache
+    //MYSQL_ATTR_SSL_CA: '/etc/ssl/certs/ca-certificates.crt' // Use the App Service platform CA bundle for Azure MySQL TLS.
+    //LOG_CHANNEL: 'stderr' // Tell Laravel to pipe logs to stderr, which makes it available to the App Service logs.
+    //APP_DEBUG: true // Enable debug mode pages in Laravel.
+    //APP_KEY: '@Microsoft.KeyVault(SecretUri=https://${keyVault.name}.vault.azure.net/secrets/appKey)' // Laravel encryption variable, required for Laravel to run.
 
     // Add other app settings here, for example:
     // 'FOO': 'BAR'
