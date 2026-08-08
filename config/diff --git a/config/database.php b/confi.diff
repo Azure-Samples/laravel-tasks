@@ -1,0 +1,27 @@
+diff --git a/config/database.php b/config/database.php
+--- config/database.php
++++ config/database.php
+@@ -14,8 +14,9 @@
+     | you may use many connections at once using the Database library.
+     |
+     */
+ 
++    
+     'default' => env('DB_CONNECTION', 'mysql'),
+ 
+     /*
+     |--------------------------------------------------------------------------
+@@ -29,11 +30,12 @@
+     |
+     | All database work in Laravel is done through the PHP PDO facilities
+     | so make sure you have the driver for your particular database of
+     | choice installed on your machine before you begin development.
+-    |
++    | changed this line
+     */
+ 
++
+     'connections' => [
+ 
+         'sqlite' => [
+             'driver' => 'sqlite',
