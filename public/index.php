@@ -1,5 +1,5 @@
 <?php
-
+echo "Hello Azure!";
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
